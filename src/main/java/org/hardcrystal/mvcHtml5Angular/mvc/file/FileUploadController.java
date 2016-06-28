@@ -22,7 +22,7 @@ public class FileUploadController {
                 byte[] fileBytes = file.getBytes();
                 String rootPath = System.getProperty("catalina.home");
                 System.out.println("System rootPath: " + rootPath);
-                System.out.println("File orginal name" + file.getOriginalFilename());
+                System.out.println("File original name" + file.getOriginalFilename());
                 System.out.println("File content type: " + file.getContentType());
 
                 File newFile = new File(rootPath + File.separator + file.getOriginalFilename());
