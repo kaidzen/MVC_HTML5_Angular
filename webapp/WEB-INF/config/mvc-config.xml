@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:nvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+	   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <context:component-scan base-package="org.hardcrystal.mvcHtml5Angular.mvc"/>
+
+    <mvc:annotation-driven/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="1"/>
+        <property name="prefix" value="/WEB-INF/view"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--File Upload config-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--Size in bytes-->
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+
+    <!--Excel and PDF xml view resolver-->
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="0"/>
+        <property name="location" value="WEB-INF/config/excel-pdf-config.xml"/>
+    </bean>
+    
+    <mvc:view-controller path="/about.html" view-name="/about/about"/>
+    <nvc:view-controller path="/index.html" view-name="/index"/>
+    <mvc:view-controller path="/file.html" view-name="/file/file"/>
+
+</beans>
