@@ -32,9 +32,12 @@
         <property name="order" value="0"/>
         <property name="location" value="WEB-INF/config/excel-pdf-config.xml"/>
     </bean>
+
+
     
     <mvc:view-controller path="/about.html" view-name="/about/about"/>
     <nvc:view-controller path="/index.html" view-name="/index"/>
     <mvc:view-controller path="/file.html" view-name="/file/file"/>
+    <mvc:view-controller path="/jdbc.html" view-name="/jdbc/jdbc"/>
 
 </beans>
