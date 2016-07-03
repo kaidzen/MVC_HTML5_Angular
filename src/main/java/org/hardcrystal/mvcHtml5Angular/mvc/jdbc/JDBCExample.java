@@ -1,6 +1,7 @@
 package org.hardcrystal.mvcHtml5Angular.mvc.jdbc;
 
 import org.hardcrystal.mvcHtml5Angular.mvc.bean.DBLog;
+import org.hardcrystal.mvcHtml5Angular.mvc.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -29,7 +30,7 @@ public class JDBCExample {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    //JDBCTemplate Insert
+    //JDBC Template Insert
     public boolean insertLog(DBLog log){
         System.out.println("JDBCExample: log(final String log) is called");
         final String INSERT_SQL = "INSERT INTO LOG(LOGSTRING) VALUES(?)";
@@ -45,20 +46,55 @@ public class JDBCExample {
         return true;
     }
 
-    //JDBCTemplate Select
-    public List<DBLog> querryAllLogs(){
+    //JDBC Template Select
+    public List<DBLog> queryAllLogs(){
         System.out.println("JDBCExample: queryAllLogs() is called");
         final String QUERY_SQL = "SELECT * FROM LOG ORDER BY IDLOG";
 
-        List<DBLog> dbLogList = this.jdbcTemplate.query(QUERY_SQL, new RowMapper<DBLog>() {
+        List<DBLog> dbLogList = this.jdbcTemplate.query(QUERY_SQL, new RowMapper<DBLog>(){
             @Override
             public DBLog mapRow(ResultSet resultSet, int rowNum) throws SQLException {
                 System.out.println("Getting log: " +rowNum+ " content: " +resultSet.getString("LOGSTRING"));
                 DBLog dbLog = new DBLog();
-
-                return null;
+                dbLog.setIDLOG(resultSet.getInt("IDLOG"));
+                dbLog.setLOGSTRING(resultSet.getString("LOGSTRING"));
+                return dbLog;
             }
         });
+        return dbLogList;
+    }
+
+    //JDBC Template Select
+    public List<User> queryAllUsers(){
+        System.out.println("JDBCExample: queryAllUsers is called");
+        final String QUERY_SQL = "SELECT * FROM USER ORDER BY IDUSER";
+
+        List<User> userList = this.jdbcTemplate.query(QUERY_SQL, new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet resultSet, int i) throws SQLException {
+                User user = new User();
+                user.setIdUser(resultSet.getInt("IDUSER"));
+                user.setUsername(resultSet.getString("USERNAME"));
+                user.setPassword(resultSet.getString("PASSWORD"));
+                user.setEnabled(resultSet.getBoolean("ENABLED"));
+                return user;
+            }
+        });
+        return userList;
+    }
+
+    //JDBC Template Delete
+    public boolean deleteUSER(int iduser){
+        System.out.println("JDBCExample: deleteUSER called");
+        final String DELETE_SQL = "DELETE FROM USER WHERE IDUSER LIKE ?";
+        int result = jdbcTemplate.update(DELETE_SQL, new Object[]{iduser});
+        System.out.println("result" + result);
+        if (result > 0){
+            System.out.println("User is deleted" + iduser);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
