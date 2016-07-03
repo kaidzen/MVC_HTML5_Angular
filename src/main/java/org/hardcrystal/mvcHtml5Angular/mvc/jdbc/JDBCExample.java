@@ -87,10 +87,25 @@ public class JDBCExample {
     public boolean deleteUSER(int iduser){
         System.out.println("JDBCExample: deleteUSER called");
         final String DELETE_SQL = "DELETE FROM USER WHERE IDUSER LIKE ?";
+
         int result = jdbcTemplate.update(DELETE_SQL, new Object[]{iduser});
         System.out.println("result" + result);
         if (result > 0){
             System.out.println("User is deleted" + iduser);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //JDBC Template Delete
+    public boolean updateUserEnable(User u, boolean enable){
+        System.out.println("JDBCExample: updateUserEnable called");
+        final String UPDATE_SQL = "UPDATE USER SET ENABLED=? WHERE USER=?";
+
+        int result = jdbcTemplate.update(UPDATE_SQL, new Object[]{enable, u.getUsername()});
+        if (result >0){
+            System.out.println("User is updated: " +u.getUsername());
             return true;
         } else {
             return false;
