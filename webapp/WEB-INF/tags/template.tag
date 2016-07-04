@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-
 <%@ tag description="Template site tag" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<%@ attribute name="title" fragment="true" %>
+<%@ attribute name="title" required="true"%>
+<%@ attribute name="content" fragment="true" %>
 
+<!DOCTYPE html>
 <head>
-    <title><jsp:invoke fragment="title"/></title>
+    <title>${title}</title>
 
     <!--Bootstrap Core-->
     <spring:url value="../resources/css/bootstrap.min.css" var="bootstrap"/>
@@ -22,7 +22,7 @@
     <link href="${fontawesome}" rel="stylesheet">
 
     <!--JQuery-->
-    <spring:url value="/recources/js/jquery.js" var="jqueryjs"/>
+    <spring:url value="/resources/js/jquery.js" var="jqueryjs"/>
     <script src="${jqueryjs}"/>
 
     <!--Bootstrap Core JavaScript-->
@@ -80,7 +80,7 @@
     <!--./container-->
 </nav>
 
-<jsp:doBody/>
+<jsp:invoke fragment="content"/>
 
 <div class="container">
     <!-- Footer -->
