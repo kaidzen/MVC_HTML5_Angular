@@ -1,8 +1,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 
 <page:template>
@@ -61,6 +61,46 @@
             </div> <!--row-->
 
             <c:url value="/email/send" var="send"></c:url>
+
+            <!--Contact Form-->
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Send Us a message</h3>
+                    <form:form name="sendMessage" id="contactForm" action="${send}" method="post" modelAttribute="emailModel" novalidate="true">
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                <label>Full Name:</label>
+                                <input type="text" class="form-group" id="name" name="name" required data-validation-required-message="Please enter your name">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                <label>Phone:</label>
+                                <input type="tel" class="form-group" id="phone" name="phoneName" required data-validation-required-message="Please enter your phone">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                <label>Email Address:</label>
+                                <input type="email" class="form-group" id="email" name="email" required data-validation-required-message="Please enter your phone">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <div class="control-group form-group">
+                            <div class="controls">
+                                <label>Message:</label>
+                                <textarea rows="10" cols="100" class="form-group" id="message" name="message" required data-validation-required-message="Please enter your message"
+                                    maxlength="999" style="resize: none">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div id="success"></div>
+                        <button type="submit" class="btn btn-primary">Send message</button>
+                    </form:form>
+                </div>
+            </div><!--row-->
 
         </div>
 
